@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from ej.models import Voluntario
+from certificados.models import Certificados
 
 from scripts import certificado
 
@@ -37,10 +38,10 @@ class Portal_view(View):
     template_name = "portal.html"
     
     def get(self, request):
-
         voluntario = Voluntario.objects.get(user__id=request.user.id)
+        certificados = Certificados.objects.filter(historico_membro__voluntario__user__id=request.user.id)
 
-        context = {'voluntario': voluntario}
+        context = {'voluntario': voluntario, 'certificados':certificados}
 
         
         return render(request, self.template_name, context)

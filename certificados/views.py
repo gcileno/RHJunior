@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
 
-from ej.models import Voluntario
 from certificados.models import Certificados
 
 
@@ -10,7 +9,7 @@ TEXT_CERTIFICADO = """
     Byte Seridó Júnior, realizando HORAS semanais (SEGUNDA A SEXTA). No período de DATA_IN a DATA_FIM na IE.
     """
 
-# Create your views here.
+
 class CertificarViews(View):
     template_name = "validar.html"
 
