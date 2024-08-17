@@ -122,3 +122,6 @@ class AnaliseDesempenho(models.Model):
     realizacao_metas = models.IntegerField()
 
     data = models.DateField()
+
+    def __str__(self):
+        return f"{self.voluntario}"

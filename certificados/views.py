@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.views.generic import View
 
 from certificados.models import Certificados
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
+from scripts import certificado
 
 
 TEXT_CERTIFICADO = """
@@ -22,3 +26,7 @@ class CertificarViews(View):
         #filtrar certificados via data fim preenchida
         context = {"certificados": certificados}
         return render(request, self.template_name, context)
+
+@method_decorator(login_required(login_url='login'), name = 'dispatch')
+def emitir_certificado(request):
+    return render()

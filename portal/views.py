@@ -4,8 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.utils import timezone
 
-from ej.models import Voluntario
+from ej.models import Voluntario, AnaliseDesempenho
 from certificados.models import Certificados
 
 from scripts import certificado
@@ -39,9 +40,20 @@ class Portal_view(View):
     
     def get(self, request):
         voluntario = Voluntario.objects.get(user__id=request.user.id)
+
         certificados = Certificados.objects.filter(historico_membro__voluntario__user__id=request.user.id)
 
-        context = {'voluntario': voluntario, 'certificados':certificados}
+        hoje = timezone.now()
+
+        analises = AnaliseDesempenho.objects.filter(
+            voluntario=voluntario,
+            data__year=hoje.year,
+            data__month=hoje.month
+        ).first()
+
+        context = {'voluntario': voluntario, 'certificados':certificados , 'analise': analises}
 
         
         return render(request, self.template_name, context)
+
+

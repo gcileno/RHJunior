@@ -1,55 +1,113 @@
 {% extends 'index.html' %}
 
 {% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">   
-            <h2>Voluntário</h2>
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <th>Nome</th>
-                        <td>{{ voluntario.nome }}</td>
-                    </tr>
-                    <tr>
-                        <th>Matrícula</th>
-                        <td>{{ voluntario.matricula }}</td>
-                    </tr>
-                    <tr>
-                        <th>Status</th>
-                        <td>{{ voluntario.get_status_display }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-md-6">
-            {% if voluntario.status == 'ATIVO' %}
-                <h2>Departamento</h2>
-                <p>{{ voluntario.nome_departamento }}</p>
-            {% elif voluntario.status == 'CANDIDATO' %}
-                <p>Candidatura em análise.</p>
-                <p>Aguarde o contato da equipe de seleção.</p>
-            {% elif voluntario.status == 'DESATIVADO' %}
-                <p>Voluntariado desativado.</p>
-                <p>Para obter seus certificados, entre em contato com o setor responsável.</p>
-            {% endif %}
+            <div class="card">
+                <div class="card-header bg-success-subtle">   
+                    <h2 class="card-title">Informações Pessoais</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"> {{ voluntario.nome }}</li>
+                        <li class="list-group-item"> {{ voluntario.matricula }}</li>
+                        <li class="list-group-item"> {{ voluntario.get_status_display }}</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
+        {% if analise %}
         <div class="col-md-6">
-            <h2>certificados</h2>
-            {% if certificados %}
-                <ul>
-                    {% for certificado in certificados %}
-                        <li>{{ certificado.autenticacao }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>Nenhum certificado disponível.</p>
-            {% endif %}
+            <div class="card ">
+                <div class="card-header bg-primary-subtle">   
+                    <h2 class="card-title">Desempenho</h2>
+                </div>
+                <div class="card-body">
+                    
+                    <ul class="list-unstyled">
+                        <li>
+                            Assiduidade: <i class="fas fa-star text-warning"></i>
+                            {% for i in "12345"|slice:analise.colaboracao %}
+                                {% if analise.assiduidade >= 3 %}
+                                    <i class="fas fa-star text-warning"></i>
+                                {% else %}
+                                    <i class="fas fa-star text-secondary"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </li>
+                        <li>
+                            Colaboração:
+                            {% for i in "12345"|slice:analise.colaboracao %}
+                                <i class="fas fa-star text-warning"></i>
+                            {% endfor %}
+                        </li>
+                        <li>
+                            Tarefas:
+                            {% for i in "1234567890"|slice:analise.tarefas %}
+                                <i class="fas fa-star text-warning"></i>
+                            {% endfor %}
+                        </li>
+                        <li>
+                            Cooperação:
+                            {% for i in "1234567890"|slice:analise.cooperacao %}
+                                <i class="fas fa-star text-warning"></i>
+                            {% endfor %}
+                        </li>
+                        <li>
+                            Realização de Metas:
+                            {% for i in "1234567890"|slice:analise.realizacao_metas %}
+                                <i class="fas fa-star text-warning"></i>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>  
+        {% endif %}
+    </div>
+    <div class="row mt-3">
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-info-subtle">
+                    <h2 class="card-title">Departamento</h2>
+                </div>
+                <div class="card-body">
+                    {% if voluntario.status == 'ATIVO' %}
+                        <p>{{ voluntario.nome_departamento }}</p>
+                    {% elif voluntario.status == 'CANDIDATO' %}
+                        <p class="text-warning">Candidatura em análise.</p>
+                    {% elif voluntario.status == 'DESATIVADO' %}
+                        <p>Voluntariado desativado.</p>
+                        <p>Para obter seus certificados, Entre nos Links abaixo.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger-subtle">
+                    <h2 class="card-title">Certificados</h2>
+                </div>
+                <div class="card-body">
+                    {% if certificados %}
+                        <ul>
+                            {% for certificado in certificados %}
+                                <li><a href="">{{ certificado.autenticacao }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Nenhum certificado disponível.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
+
 {% endblock %}
