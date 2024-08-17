@@ -97,7 +97,7 @@
                     {% if certificados %}
                         <ul>
                             {% for certificado in certificados %}
-                                <li><a href="">{{ certificado.autenticacao }}</a></li>
+                                <li><a href={% url "emitir_certificado" certificado.id %}>{{ certificado.autenticacao }}</a></li>
                             {% endfor %}
                         </ul>
                     {% else %}

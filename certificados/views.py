@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
-
-from certificados.models import Certificados
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from scripts import certificado
+from ej.models import Voluntario, HistoricoMembro, EmpresasJuinior
+from certificados.models import Certificados
+
+from scripts.certificado import header_certificado, footer_certificado, text_certificado
 
 
 TEXT_CERTIFICADO = """
@@ -28,5 +29,24 @@ class CertificarViews(View):
         return render(request, self.template_name, context)
 
 @method_decorator(login_required(login_url='login'), name = 'dispatch')
-def emitir_certificado(request):
-    return render()
+class EmitirCertificadoView(View):
+
+    def get(self, request, certificado_id):
+        ej = EmpresasJuinior.objects.get(id=1)
+
+        certificado = get_object_or_404(Certificados, id=certificado_id)
+
+        historico = certificado.historico_membro
+
+        vol = Voluntario.objects.get(id=historico.voluntario.id)
+        
+
+        context = {
+            'header':header_certificado(ej),
+            'body':text_certificado(vol,historico,ej),
+            'footer': footer_certificado(certificado.autenticacao, ej),
+        }
+
+        print(historico)
+        return render(request, 'emitir_certificado.html', context)
+    
