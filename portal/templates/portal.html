@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">   
+            <h2>Voluntário</h2>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Nome</th>
+                        <td>{{ voluntario.nome }}</td>
+                    </tr>
+                    <tr>
+                        <th>Matrícula</th>
+                        <td>{{ voluntario.matricula }}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>{{ voluntario.get_status_display }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {% if voluntario.status == 'ATIVO' %}
+                <h2>Departamento</h2>
+                <p>{{ voluntario.nome_departamento }}</p>
+            {% elif voluntario.status == 'CANDIDATO' %}
+                <p>Candidatura em análise.</p>
+                <p>Aguarde o contato da equipe de seleção.</p>
+            {% elif voluntario.status == 'DESATIVADO' %}
+                <p>Voluntariado desativado.</p>
+                <p>Para obter seus certificados, entre em contato com o setor responsável.</p>
+            {% endif %}
+        </div>
+    </div>    
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <title>Validar Certificados Byte Seridó</title>
+</head>
+<body>
+
+    <!-- Primeira Seção Hero para Pesquisar Matrícula -->
+    <section class="hero is-primary is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Pesquisar Chave
+                </h1>
+                <form method="POST" action="" class="box">
+                    {% csrf_token %}
+                    <div class="field">
+                        <label class="label">Chave</label>
+                        <div class="control">
+                            <input class="input" type="text" name="chave" placeholder="Digite a Matrícula">
+                        </div>
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-link">Pesquisar</button>
+                    </div>
+                </form>
+
+                {% if certificados %}
+                    <div>
+                        A chave pertence ao Voluntario:
+                    </div>
+                    
+                    <div>
+                        O certificado é válido!
+                    </div>
+
+                
+                {% else %}
+                    <div>
+                        Não encontrei dados válidos para a pesquisa!
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Segunda Seção Hero para Pesquisar Chave de Certificado 
+    
+    <section class="hero is-info is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Pesquisar Chave de Certificado
+                </h1>
+                <form method="POST" action="" class="box">
+                    {% csrf_token %}
+                    <div class="field">
+                        <label class="label">Chave do Certificado</label>
+                        <div class="control">
+                            <input class="input" type="text" name="chave_certificado" placeholder="Digite a Chave do Certificado">
+                        </div>
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-link">Pesquisar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section> -->
+
+</body>
+</html>
