@@ -90,16 +90,19 @@
 
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header bg-danger-subtle">
+                <div class="card-header --bs-success-bg-subtle">
                     <h2 class="card-title">Certificados</h2>
                 </div>
                 <div class="card-body">
                     {% if certificados %}
-                        <ul>
+                        <div class="list-group">
                             {% for certificado in certificados %}
-                                <li><a href={% url "emitir_certificado" certificado.id %}>{{ certificado.autenticacao }}</a></li>
+                                <a class="list-group-item list-group-item-action" 
+                                    href={% url "emitir_certificado" certificado.id %}>
+                                        {{ certificado.historico_membro.funcao }}
+                                </a>
                             {% endfor %}
-                        </ul>
+                        </div>
                     {% else %}
                         <p>Nenhum certificado disponível.</p>
                     {% endif %}

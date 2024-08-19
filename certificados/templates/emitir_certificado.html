@@ -9,23 +9,14 @@
 <body>
     <section class="container">
         
-        <section class="hero is-primary is-fullheight">
+        <section class="hero">
             <div class="hero-body">
                 <div class="container">
-                    <!-- Primeiro Box -->
-                    <div class="box has-background-success-dark has-text-white">
                         {{ header|safe }}
-                    </div>
-        
-                    <!-- Segundo Box -->
-                    <div class="box has-background-success-dark has-text-white">
+                     
                         {{ body|safe }}
-                    </div>
-        
-                    <!-- Terceiro Box -->
-                    <div class="box has-background-success-dark has-text-white">
+                    
                         {{ footer|safe }}
-                    </div>
                 </div>
             </div>
         </section>
@@ -46,10 +37,10 @@
         
             // Configurações opcionais do PDF
             var opt = {
-                margin:       1,
-                filename:     'document.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
+                margin:       0,
+                filename:     'certificado.pdf',
+                image:        { type: 'jpeg', quality: 50 },
+                html2canvas:  { scale: 5 },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
         

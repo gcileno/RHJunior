@@ -11,34 +11,32 @@
         crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
-<body>
-    <div class="container-fluid">
-        <div class="position-absolute top-50 start-50 translate-middle" style="background: #1200FF; color: white; width: 320px; height: 320px; border-radius: 14%;">
-            <form action="{% url 'submit_login' %}" method="POST">{% csrf_token %}
-                <div class="mb-3" style="margin: 30px;">
-                    <label for="" class="form-label">Matricula</label>
-                    <input type="text" class="form-control" name="username" placeholder="X0000000">
+    <body class="bg-light d-flex align-items-center justify-content-center vh-100">
+        <div class="card p-4 shadow-sm" style="max-width: 400px; width: 100%;">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Byte Seridó</h2>
+                <form action="{% url 'submit_login' %}" method="POST">{% csrf_token %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Matrícula</label>
+                        <input type="text" class="form-control" name="username" placeholder="X0000000">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                </form>
+                {% if messages %}
+                <div class="alert alert-primary mt-3">
+                    {% for messages in messages %}
+                    <strong>{{ messages }}</strong>
+                    {% endfor %}
                 </div>
-                <div class="mb-3" style="margin: 30px;">
-                    <label for="" class="form-label">Senha</label>
-                    <input type="password" class="form-control" name="password">
-                </div>
-                <div class="mc-3" style="margin: 30px;">
-                    <input class="btn btn-primary" type="submit" value="Entrar">
-                </div>
-            </form>
+                {% endif %}
+            </div>
         </div>
-        <div class="alert alert-primary position-absolute bottom-0 start-50 translate-middle-x">
-            {% for messages in messages %}
-            <strong>{{ messages }}</strong>
-            {% endfor %}
-        </div>
-    </div>
-
-    <script 
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-        crossorigin="anonymous">
-    </script>
-</body>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    </body>
 </html>

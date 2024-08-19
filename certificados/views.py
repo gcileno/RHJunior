@@ -8,7 +8,7 @@ from django.http import HttpResponseForbidden
 from ej.models import Voluntario, HistoricoMembro, EmpresasJuinior
 from certificados.models import Certificados
 
-from scripts.certificado import header_certificado, footer_certificado, text_certificado
+from scripts.certificado import header_certificado, footer_certificado, text_certificado, CertificadoHTML
 
 
 TEXT_CERTIFICADO = """
@@ -16,7 +16,7 @@ TEXT_CERTIFICADO = """
     Byte Seridó Júnior, realizando HORAS semanais (SEGUNDA A SEXTA). No período de DATA_IN a DATA_FIM na IE.
     """
 
-
+##Busca decertificados através do método post
 class CertificarViews(View):
     template_name = "validar.html"
 
@@ -32,7 +32,7 @@ class CertificarViews(View):
         context = {"certificados": certificados, "voluntario":vol}
         return render(request, self.template_name, context)
 
-#@method_decorator(login_required(login_url='login'), name = 'dispatch')
+
 class EmitirCertificadoView(LoginRequiredMixin,View):
 
     def get(self, request, certificado_id):
@@ -49,11 +49,12 @@ class EmitirCertificadoView(LoginRequiredMixin,View):
         if certificado.historico_membro.voluntario.user != request.user:
             return HttpResponseForbidden("Você não tem permissão para acessar este certificado.")
         
+        certificado = CertificadoHTML(ej,vol,historico,certificado.autenticacao)
 
         context = {
-            'header':header_certificado(ej),
-            'body':text_certificado(vol,historico,ej),
-            'footer': footer_certificado(certificado.autenticacao, ej),
+            'header':certificado.header_certificado(),
+            'body':certificado.text_certificado(),
+            'footer': certificado.footer_certificado(),
         }
         return render(request, 'emitir_certificado.html', context)
     
