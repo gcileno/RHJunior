@@ -1,23 +1,10 @@
 import datetime
 
-from ej.models import EmpresasJuinior
-
-parametros = {
-    "nome": 'nome',
-    "matricula": 'mat',
-    "funcao": 'fun',
-    "horas": 'hrs',
-    "data_in": 'in',
-    "data_fim": 'fim',
-    "id": 'ie',
-    "tt_hrs": 'hr'
-}
-
 def header_certificado(ej):
     HEADER = f"""
-        <p><strong>Nome: {ej.razao_social}</strong></p>
-        <p><strong>CNPJ: {ej.cnpj}</strong></p>
-        <p><strong>Area de atuação: {ej.area_atuacao}</strong></p>
+        <p has-text-primary-00><strong> {ej.razao_social}</strong></p>
+        <p has-text-primary-00><strong> {ej.cnpj}</strong></p>
+        <p has-text-primary-00><strong> {ej.area_atuacao}</strong></p>
         """
     return HEADER
 
@@ -37,21 +24,21 @@ def text_certificado(voluntario, historico, ej):
 
     # Texto do certificado com formatação básica
     TEXT_CERTIFICADO = f"""
-    <p><strong>Certificado</strong></p>
-    <p>Este certificado é concedido a {voluntario.nome}, portador(a) da matrícula nº {voluntario.matricula}, em reconhecimento à sua participação como {historico.funcao} na Byte Seridó Júnior.</p>
-    <p>O(A) voluntário(a) dedicou {horas} {horas_plural} semanais (SEGUNDA A SEXTA) no período de {data_inicio} a {data_fim} na {ej.razao_social}, totalizando {total_hrs} horas.</p>
-    <p>Caicó-RN, {datetime.date.today().strftime('%d de %B de %Y')}</p>
+    <p class="title is-5"><strong>Certificado</strong></p>
+    <p class="subtitle is-6">Este certificado é concedido a {voluntario.nome}, portador(a) da matrícula nº {voluntario.matricula}, em reconhecimento à sua participação como {historico.funcao} na Byte Seridó Júnior.</p>
+    <p class="subtitle is-6">O(A) voluntário(a) dedicou {horas} {horas_plural} semanais (SEGUNDA A SEXTA) no período de {data_inicio} a {data_fim} na {ej.razao_social}, totalizando {total_hrs} horas.</p>
+    <p class="subtitle is-6">Caicó-RN, {datetime.date.today().strftime('%d de %B de %Y')}</p>
     """
     return TEXT_CERTIFICADO
 
-def footer_certificado(chave,ej):
-
+def footer_certificado(chave, ej):
     FOOTER = f"""
-
-        <p><strong>{ej.representante_legal}</strong></p>
-        <p>Diretor(a) Presidente</p>
-        <p>Chave de autenticação: {chave}</p>
-        <p>Acesse: byteseridojr/certificados/buscar/ </p>
-        <p>Digite a cheve no campo buscar para validação. </p>
-        """
+        <div class="content has-text-centered">
+            <p class="title is-5"><strong>{ej.representante_legal}</strong></p>
+            <p class="subtitle is-6">Diretor(a) Presidente</p>
+            <p class="subtitle is-6">Chave de autenticação: <strong>{chave}</strong></p>
+            <p class="subtitle is-6">Acesse: <a href="https://byteseridojr/certificados/buscar/" target="_blank">byteseridojr/certificados/buscar/</a></p>
+            <p class="subtitle is-6">Digite a chave no campo buscar para validação.</p>
+        </div>
+    """
     return FOOTER

@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseForbidden
 
 from ej.models import Voluntario, HistoricoMembro, EmpresasJuinior
 from certificados.models import Certificados
@@ -25,13 +27,16 @@ class CertificarViews(View):
     def post(self, request):
         certificados = Certificados.objects.get(autenticacao = request.POST.get("chave"))
         #filtrar certificados via data fim preenchida
-        context = {"certificados": certificados}
+        vol = certificados.historico_membro.voluntario
+
+        context = {"certificados": certificados, "voluntario":vol}
         return render(request, self.template_name, context)
 
-@method_decorator(login_required(login_url='login'), name = 'dispatch')
-class EmitirCertificadoView(View):
+#@method_decorator(login_required(login_url='login'), name = 'dispatch')
+class EmitirCertificadoView(LoginRequiredMixin,View):
 
     def get(self, request, certificado_id):
+        
         ej = EmpresasJuinior.objects.get(id=1)
 
         certificado = get_object_or_404(Certificados, id=certificado_id)
@@ -39,6 +44,10 @@ class EmitirCertificadoView(View):
         historico = certificado.historico_membro
 
         vol = Voluntario.objects.get(id=historico.voluntario.id)
+
+                # Verifica se o usuário logado é o proprietário do certificado
+        if certificado.historico_membro.voluntario.user != request.user:
+            return HttpResponseForbidden("Você não tem permissão para acessar este certificado.")
         
 
         context = {
@@ -46,7 +55,5 @@ class EmitirCertificadoView(View):
             'body':text_certificado(vol,historico,ej),
             'footer': footer_certificado(certificado.autenticacao, ej),
         }
-
-        print(historico)
         return render(request, 'emitir_certificado.html', context)
     
