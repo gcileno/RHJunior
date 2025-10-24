@@ -11,3 +11,6 @@ def create():
             print(f"Novo departamento'{nome}")
         else:
             print(f"O Departamento: '{nome}' já existe no banco de dados.")
+
+if __name__ == "__main__":
+    create()
