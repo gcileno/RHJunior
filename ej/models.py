@@ -6,13 +6,13 @@ STATUS_VOLUNTARIO = (
     ('DESLIGADO', 'Desativado')
 )
 
-class EmpresasJuinior(models.Model):
+class EmpresaJunior(models.Model):
     razao_social = models.CharField(max_length=50)
     cnpj = models.CharField(max_length=18)  # Use CharField para CNPJ
     inscricao_estadual = models.CharField(max_length=20)
     
     representante_legal = models.CharField(max_length=100)
-    cpf_representante_lega = models.CharField(max_length=11)
+    cpf_representante_legal = models.CharField(max_length=11)
     
     area_atuacao = models.CharField(max_length=100)
     site = models.URLField(blank=True)  
@@ -101,7 +101,9 @@ class Voluntario(models.Model):
     def __str__(self):
         return f'{self.nome}'
 
-
+"""
+esses dois devem ir para um app separado
+"""
 class HistoricoMembro(models.Model):
     voluntario = models.ForeignKey(Voluntario, on_delete=models.CASCADE, blank=True, null=True, related_name="historico")
     funcao = models.ForeignKey(Funcao, on_delete=models.CASCADE, null=True, blank=True)

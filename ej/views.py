@@ -1,18 +1,18 @@
 from rest_framework import generics
 from .serializers import *
-from .models import EmpresasJuinior, Voluntario
+from .models import EmpresaJunior, Voluntario
 from rest_framework.permissions import IsAuthenticated
 
 
 
 class JuniorsListView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated, )
-    queryset = EmpresasJuinior.objects.all()
+    queryset = EmpresaJunior.objects.all()
     serializer_class = JuniorSerializer
 
 class JuniorsRetrivieUpDelView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, )
-    queryset = EmpresasJuinior.objects.all()
+    queryset = EmpresaJunior.objects.all()
     serializer_class = JuniorSerializer
 
 class VoluntarioListView(generics.ListCreateAPIView):

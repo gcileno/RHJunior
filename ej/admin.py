@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import EmpresasJuinior, HistoricoMembro, Funcao, Departamento, Voluntario, Informacoes, AnaliseDesempenho
+from .models import EmpresaJunior, HistoricoMembro, Funcao, Departamento, Voluntario, Informacoes, AnaliseDesempenho
 
 # Consultas e filtros em ADMIN
-class EmpresasJuiniorAdmin(admin.ModelAdmin):
+class EmpresaJuniorAdmin(admin.ModelAdmin):
     list_display=('razao_social',)
     search_fields = ('razao_social','cnpj',)
 
@@ -26,7 +26,7 @@ class DesempenhoAdmin(admin.ModelAdmin):
     list_display = ('voluntario',)
     search_fields = ('voluntario',)
 
-admin.site.register(EmpresasJuinior, EmpresasJuiniorAdmin)
+admin.site.register(EmpresaJunior, EmpresaJuniorAdmin)
 admin.site.register(Funcao, FuncaoAdmim)
 admin.site.register(HistoricoMembro, HistoricoMembroAdmin)
 admin.site.register(Departamento, DepartamentoAdmin)

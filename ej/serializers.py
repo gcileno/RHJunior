@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import EmpresasJuinior, Voluntario,Funcao, HistoricoMembro, Departamento
+from .models import EmpresaJunior, Voluntario,Funcao, HistoricoMembro, Departamento
 
 class JuniorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = EmpresasJuinior
+        model = EmpresaJunior
         fields = '__all__'
 
 class VoluntarioSerializer(serializers.ModelSerializer):

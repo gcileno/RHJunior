@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseForbidden
 
-from ej.models import Voluntario, HistoricoMembro, EmpresasJuinior
+from ej.models import Voluntario, HistoricoMembro, EmpresaJunior
 from certificados.models import Certificados
 
 from scripts.certificado import header_certificado, footer_certificado, text_certificado, CertificadoHTML
