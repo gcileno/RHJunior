@@ -1,13 +1,13 @@
 # Projeto de desenvolvimento de uma plataforma integrada de gestão de pessoas para Empresas Juniors
 
-<details>
-    <summary>Visão Geral</summary>
 
-    Plataforma integrada para gestão de pessoas focada em Empresas Juniores: cadastro de membros, projetos, avaliações, relatórios e emissão de certificados.
-</details>
+## Visão Geral
+
+Plataforma integrada para gestão de pessoas focada em Empresas Juniores: cadastro de membros, projetos, avaliações, relatórios e emissão de certificados.
+
 
 <details>
-    <summary>Funcionalidades</summary>
+    <summary>Funcionalidades Básicas</summary>
 
     - Cadastro e autenticação de membros  
     - Gestão de projetos e equipes  
