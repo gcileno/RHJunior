@@ -1,6 +1,7 @@
 from django.db import models
 from ej.models import Voluntario, Departamento
 
+#TODO Verificar __str__ em relação a herança
 class BaseModel(models.Model):
 
     class StatusChoices(models.TextChoices):
@@ -60,9 +61,7 @@ class Escopo(models.Model):
         "Voluntario", 
         related_name="objetivos_liderados",
     )
-    descricao = models.TextField()
-    data_inicio = models.DateField()
-    data_fim = models.DateField(null=True, blank=True)
+
 
     def __str__(self):
         return f"{self.projeto.nome} - {self.lider.nome}"
@@ -77,11 +76,6 @@ class Tarefas(models.Model):
         on_delete=models.CASCADE,
         related_name="atividades"
         )
-    
-    titulo = models.CharField(max_length=100)
-    descricao = models.TextField()
-    data_inicio = models.DateField()
-    data_fim = models.DateField(null=True, blank=True)
 
     assinantes = models.ManyToManyField(
         "Voluntario",
@@ -89,10 +83,8 @@ class Tarefas(models.Model):
         blank=True
         )
     
-    status = models.BooleanField(verbose_name="Concluída", default=False)
-
     def __str__(self):
-        return f"{self.titulo} - {self.projeto.nome}"
+        return f"{self.nome} - {self.inicio} - {self.fim}"
     
     class Meta:
         verbose_name = "Tarefa"
