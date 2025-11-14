@@ -1,6 +1,28 @@
 from django.db import models
 from ej.models import Voluntario, Departamento
 
+class BaseModel(models.Model):
+
+    class StatusChoices(models.TextChoices):
+        PENDENTE = "Pendente", "Pendente"
+        DESENVOLVIMENTO = "Desenvolvimento", "Desenvolvimento"
+        DEBUG = "Debug", "Debug"
+        CONCLUIDO = "Concluído", "Concluído"
+
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField()
+
+    inicio= models.DateTimeField(auto_now_add=True)
+    fim = models.DateTimeField(auto_now=True)
+
+    _status = models.CharField(
+        max_length=20,
+        choices=StatusChoices.choices,
+        default=StatusChoices.PENDENTE,
+    )
+    class Meta:
+        abstract = True
+    
 
 class Projeto(models.Model):
 
@@ -19,16 +41,6 @@ class Projeto(models.Model):
         blank=True,
         null=True
         )
-    
-    membross = models.ManyToManyField(
-        "Voluntario")
-    
-    nome = models.CharField(max_length=100)
-    descricao = models.TextField()
-
-    data_inicio = models.DateField()
-    data_fim = models.DateField(null=True, blank=True)
-    status = models.BooleanField(verbose_name="Status", default=False)
 
     def __str__(self):
         return self.nome
@@ -37,18 +49,7 @@ class Projeto(models.Model):
         verbose_name = "Projeto"
         verbose_name_plural = "Projetos"
 
-class Requisitos(models.Model):
-    """
-    Essa classe deve respesentar os objetivos gerais do projeteto,
-    representando em um contexto geral ouqe se pretenden alcançar com sua execução.
-    deve ser dividido em diversas atividades específicas.
-    Ex: 
-        Objetivo Geral: Criar Tela de login
-        Atividades:
-            - Criar layout da tela
-            - Implementar validação de dados
-            - Testar funcionalidade 
-    """
+class Escopo(models.Model):
     projeto = models.ForeignKey(
         "Projeto",
         on_delete=models.CASCADE,
@@ -63,9 +64,16 @@ class Requisitos(models.Model):
     data_inicio = models.DateField()
     data_fim = models.DateField(null=True, blank=True)
 
+    def __str__(self):
+        return f"{self.projeto.nome} - {self.lider.nome}"
+    
+    class Meta:
+        verbose_name = "Escopo"
+        verbose_name_plural = "Escopos"
+
 class Tarefas(models.Model):
     projeto = models.ForeignKey(
-        "Requisitos", # Aqui eu vou me relacionar com a classe filha de projeto
+        "Escopo", # Aqui eu vou me relacionar com a classe filha de projeto
         on_delete=models.CASCADE,
         related_name="atividades"
         )
@@ -80,6 +88,9 @@ class Tarefas(models.Model):
         related_name="atividades_assinadas",
         blank=True
         )
+    
+    status = models.BooleanField(verbose_name="Concluída", default=False)
+
     def __str__(self):
         return f"{self.titulo} - {self.projeto.nome}"
     
