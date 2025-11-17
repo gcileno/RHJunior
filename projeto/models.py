@@ -7,6 +7,7 @@ class BaseModel(models.Model):
     class StatusChoices(models.TextChoices):
         PENDENTE = "Pendente", "Pendente"
         DESENVOLVIMENTO = "Desenvolvimento", "Desenvolvimento"
+        TESTE = "Teste", "Teste"
         DEBUG = "Debug", "Debug"
         CONCLUIDO = "Concluído", "Concluído"
 
@@ -16,7 +17,7 @@ class BaseModel(models.Model):
     inicio= models.DateTimeField(auto_now_add=True)
     fim = models.DateTimeField(auto_now=True)
 
-    _status = models.CharField(
+    status = models.CharField(
         max_length=20,
         choices=StatusChoices.choices,
         default=StatusChoices.PENDENTE,

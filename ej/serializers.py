@@ -16,11 +16,6 @@ class FuncaoSerializer(serializers.ModelSerializer):
         model = Funcao
         fields = '__all__'
 
-class HistoricoMembroSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = HistoricoMembro
-        fields = '__all__'
-
 class DepartamentoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Departamento

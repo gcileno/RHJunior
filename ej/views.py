@@ -36,17 +36,6 @@ class FuncaoRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Funcao.objects.all()
     serializer_class = FuncaoSerializer
 
-# Views para HistoricoMembro
-class HistoricoMembroListView(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated, )
-    queryset = HistoricoMembro.objects.all()
-    serializer_class = HistoricoMembroSerializer
-
-class HistoricoMembroRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated, )
-    queryset = HistoricoMembro.objects.all()
-    serializer_class = HistoricoMembroSerializer
-
 # Views para Departamento
 class DepartamentoListView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated, )

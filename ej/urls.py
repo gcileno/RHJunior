@@ -3,7 +3,6 @@ from .views import (
     JuniorsListView, JuniorsRetrivieUpDelView,
     VoluntarioListView, VoluntarioRetrivieUpDelView,
     FuncaoListView, FuncaoRetrieveUpdateDestroyView,
-    HistoricoMembroListView, HistoricoMembroRetrieveUpdateDestroyView,
     DepartamentoListView, DepartamentoRetrieveUpdateDestroyView,
 )
 
@@ -16,9 +15,6 @@ urlpatterns = [
     
     path('funcoes/', FuncaoListView.as_view(), name='funcao-list'),
     path('funcoes/<int:pk>/', FuncaoRetrieveUpdateDestroyView.as_view(), name='funcao-detail'),
-    
-    path('historico/', HistoricoMembroListView.as_view(), name='funcao-list'),
-    path('historico/<int:pk>/', HistoricoMembroRetrieveUpdateDestroyView.as_view(), name='funcao-detail'),
     
     path('departamentos/', DepartamentoListView.as_view(), name='departamento-list'),
     path('departamentos/<int:pk>/', DepartamentoRetrieveUpdateDestroyView.as_view(), name='departamento-detail'),
