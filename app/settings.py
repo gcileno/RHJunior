@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'certificados',
     'portal',
     'authentication',
+    'projeto',
+
+    #app externos
     'rest_framework',
     'rest_framework_simplejwt',
 ]

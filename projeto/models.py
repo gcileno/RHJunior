@@ -14,8 +14,8 @@ class BaseModel(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField()
 
-    inicio= models.DateTimeField(auto_now_add=True)
-    fim = models.DateTimeField(auto_now=True)
+    inicio= models.DateTimeField(null=True, blank=True)
+    fim = models.DateTimeField(null=True, blank=True)
 
     status = models.CharField(
         max_length=20,
@@ -26,10 +26,10 @@ class BaseModel(models.Model):
         abstract = True
     
 
-class Projeto(models.Model):
+class Projeto(BaseModel):
 
     lider = models.ForeignKey(
-        "Voluntario", 
+        Voluntario, 
         on_delete=models.CASCADE, 
         related_name="projetos_liderados",
         blank=True, 
@@ -37,7 +37,7 @@ class Projeto(models.Model):
         )
     
     departamento = models.ForeignKey(
-        "Departamento",
+        Departamento,
         on_delete=models.CASCADE,
         related_name="projetos",
         blank=True,
@@ -51,7 +51,7 @@ class Projeto(models.Model):
         verbose_name = "Projeto"
         verbose_name_plural = "Projetos"
 
-class Escopo(models.Model):
+class Escopo(BaseModel):
     projeto = models.ForeignKey(
         "Projeto",
         on_delete=models.CASCADE,
@@ -59,27 +59,28 @@ class Escopo(models.Model):
         )
     
     lider = models.ForeignKey(
-        "Voluntario", 
-        related_name="objetivos_liderados",
+        Voluntario,
+        on_delete=models.CASCADE, 
+        related_name="escopos_liderados",
     )
 
 
     def __str__(self):
-        return f"{self.projeto.nome} - {self.lider.nome}"
+        return f"{self.nome}"
     
     class Meta:
         verbose_name = "Escopo"
         verbose_name_plural = "Escopos"
 
-class Tarefas(models.Model):
-    projeto = models.ForeignKey(
+class Tarefas(BaseModel):
+    escopo = models.ForeignKey(
         "Escopo", # Aqui eu vou me relacionar com a classe filha de projeto
         on_delete=models.CASCADE,
         related_name="atividades"
         )
 
     assinantes = models.ManyToManyField(
-        "Voluntario",
+        Voluntario,
         related_name="atividades_assinadas",
         blank=True
         )
