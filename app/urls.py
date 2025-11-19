@@ -19,10 +19,13 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('ej.urls')),
+    # Rotas da API
+    path('api/', include('authentication.urls')),
+    path('api/', include('projeto.urls')),
+
+    # Rotas para as aplicações do sistema front-end
     path('', include('certificados.urls')),
-    path('', include('authentication.urls')),
+    path('', include('ej.urls')),
     path('',include('portal.urls')),
-    path('', include('projeto.urls')),
 
 ]
