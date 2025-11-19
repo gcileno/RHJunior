@@ -23,5 +23,6 @@ urlpatterns = [
     path('', include('certificados.urls')),
     path('', include('authentication.urls')),
     path('',include('portal.urls')),
+    path('', include('projeto.urls')),
 
 ]

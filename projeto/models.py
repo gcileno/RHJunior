@@ -43,6 +43,12 @@ class Projeto(BaseModel):
         blank=True,
         null=True
         )
+    
+    membros = models.ManyToManyField(
+        Voluntario,
+        related_name="projetos",
+        blank=True
+        )
 
     def __str__(self):
         return self.nome
