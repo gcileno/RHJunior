@@ -16,3 +16,9 @@ class ProjetoListView(generics.ListCreateAPIView):
         
         # Caso contrário, retorna apenas os projetos que o usuário participa
         return Projeto.objects.filter(membros=user.voluntario)
+
+class ProjetoDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ProjetoSerializer
+
+    queryset = Projeto.objects.all()
